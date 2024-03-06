@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+
+{%block title%}
+{{user.first_name}} {{user.last_name}}
+{%endblock%}
+
+{%block content%}
+<h1>{{user.first_name}} {{user.last_name}}</h1>
+<p>ID: {{user.id}}</p>
+<img src="{{user.image_url}}" alt="">
+
+<form method="POST">
+    <button name="ACTION" value="edit">EDIT</button>
+    <button name="ACTION" value="delete">DELETE</button>
+</form>
+<a href="/user">⬅ BACK</a>
+{%endblock%}
