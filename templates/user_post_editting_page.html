@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+{%block title%}
+New Post
+{%endblock%}
+
+{%block content%}
+<h1 class="display-5">Edit Post for {{user.first_name}} {{user.last_name}}</h1>
+<form method="POST">
+    <input class='form-control' name="title" type="text" placeholder="Title" value="{{post.title}}">
+    <textarea class='form-control' name="content" cols="30" rows="10"
+        placeholder="Type your blog here">{{post.content}}</textarea>
+    <button style="margin-top:25px" class="btn btn-primary btn-sm" type="submit">SAVE</button>
+</form>
+
+<a style="margin-top:25px" class="btn btn-outline-primary" href="/users/{{user.id}}/post/{{post.id}}/{{post.title}}">⬅
+    BACK</a>
+{%endblock%}

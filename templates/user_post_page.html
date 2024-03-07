@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+{%block title%}
+{{post.name}}
+{%endblock%}
+
+{%block content%}
+<style>
+    .preserve-line-breaks {
+        white-space: pre-line;
+    }
+</style>
+<article class="preserve-line-breaks" style="margin:0;">
+    <h1 style="margin-bottom:0;" class="display-5">{{post.title}}</h1>
+    {{post.content}}
+</article>
+<small>
+    <p style="margin-top: 25px;"><i>By {{user.first_name}} {{user.last_name}} on {{creation_date}}</i></p>
+</small>
+<form method="POST">
+    <button class="btn btn-primary" name="ACTION" value="edit">EDIT</button>
+    <button class="btn btn-danger" name="ACTION" value="delete">DELETE</button>
+</form>
+<a style="margin-top:25px" class="btn btn-outline-primary" href="/users/{{user.id}}">⬅ BACK</a>
+{%endblock%}

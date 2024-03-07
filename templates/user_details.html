@@ -5,13 +5,27 @@
 {%endblock%}
 
 {%block content%}
-<h1>{{user.first_name}} {{user.last_name}}</h1>
-<p>ID: {{user.id}}</p>
-<img src="{{user.image_url}}" alt="">
+<h1 class="display-2">{{user.first_name}} {{user.last_name}}</h1>
+<p class="display-6">ID: {{user.id}}</p>
+<img style="max-height:25vh;min-height:15vh;margin-bottom:15px" src="{{user.image_url}}" alt="">
 
 <form method="POST">
-    <button name="ACTION" value="edit">EDIT</button>
-    <button name="ACTION" value="delete">DELETE</button>
+    <button class="btn btn-primary" name="ACTION" value="edit">EDIT</button>
+    <button class="btn btn-danger" name="ACTION" value="delete">DELETE</button>
 </form>
-<a href="/user">⬅ BACK</a>
+
+{%if posts%}
+<h2 class="display-6">Posts</h2>
+<ul>
+    {%for post in posts%}
+    <li><a href="/users/{{user.id}}/post/{{post.id}}/{{post.title}}">{{post.title}}</a></li>
+    {%endfor%}
+</ul>
+{%else%}
+<h2 class="display-6">No Posts</h2>
+{%endif%}
+<form method="POST">
+    <button class="btn btn-primary" name="ACTION" value="new-post">ADD POST</button>
+</form>
+<a style="margin-top:25px" class="btn btn-outline-primary" href="/users">⬅ BACK</a>
 {%endblock%}

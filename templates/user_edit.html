@@ -9,7 +9,7 @@ Edit User
     <input type="text" name="first_name" placeholder="First Name" value="{{user.first_name}}" required>
     <input type="text" name="last_name" placeholder="Last Name" value="{{user.last_name}}" required>
     <input type="text" name="image_url" placeholder="Image URL" value="{{user.image_url}}">
-    <button type="submit">SAVE</button>
+    <button class="btn btn-primary" type="submit">SAVE</button>
 </form>
-<a href="/user/{{user.id}}">⬅ BACK</a>
+<a style="margin-top:25px" class="btn btn-outline-primary" href="/users/{{user.id}}">⬅ BACK</a>
 {%endblock%}
