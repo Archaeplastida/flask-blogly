@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+
+{%block title%}
+{{tag.name}}
+{%endblock%}
+
+{%block content%}
+<h1 class="display-2">{{tag.name}}</h1>
+<p class="display-6">ID: {{tag.id}}</p>
+
+<form method="POST">
+    <button class="btn btn-primary" name="ACTION" value="edit">EDIT</button>
+    <button class="btn btn-danger" name="ACTION" value="delete">DELETE</button>
+</form>
+
+{%if posts%}
+<h2 class="display-6">Posts</h2>
+<ul>
+    {%for post in posts%}
+    <li><a href="/users/{{post.user.id}}/post/{{post.id}}/{{post.title}}">{{post.title}}</a></li>
+    {%endfor%}
+</ul>
+{%else%}
+<h2 class="display-6" style="margin-top:50px; margin-bottom:50px;">No posts</h2>
+{%endif%}
+<a style="margin-top:25px" class="btn btn-outline-primary" href="/tags">⬅ BACK</a>
+{%endblock%}

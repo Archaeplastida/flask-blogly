@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+{%block title%}
+Tags
+{%endblock%}
+
+{%block content%}
+{%if tags%}
+<h1 class="display-2">Tags</h1>
+<ul>
+    {%for tag in tags%}
+    <li><a href="/tags/{{tag.id}}">{{tag.name}}</a></li>
+    {%endfor%}
+</ul>
+{%else%}
+<h1 class="display-2" style="margin-bottom:50px;">No Tags</h1>
+{%endif%}
+
+<h2 class="display-6">Add tag</h2>
+<form action="/tags" method="POST">
+    <input type="text" name="tag_name" placeholder="Tag Name" required>
+    <br>
+    <button style="margin-top:25px" class="btn btn-primary btn-sm" type="submit">CREATE TAG</button>
+</form>
+{%endblock%}

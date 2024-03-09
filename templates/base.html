@@ -11,15 +11,25 @@
 
 <body>
     <div class="container" style="padding:50px">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/users">
-                        <h1 class='navbar-brand mb-0' style="font-size:30px">BLOGLY</h1>
-                    </a>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="font-size:30px;font-weight:bold">BLOGLY</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/users">USERS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/tags">TAGS</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
 
         <hr>
         {%block content%}

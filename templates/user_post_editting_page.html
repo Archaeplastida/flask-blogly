@@ -7,8 +7,25 @@ New Post
 <h1 class="display-5">Edit Post for {{user.first_name}} {{user.last_name}}</h1>
 <form method="POST">
     <input class='form-control' name="title" type="text" placeholder="Title" value="{{post.title}}">
+    {%if tags%}
+    <textarea class='form-control' name="content" cols="30" rows="10" style="margin-bottom:25px"
+        placeholder="Type your blog here">{{post.content}}</textarea>
+    {%for tag in tags%}
+    <div class="form-check">
+        {%if tag.id in checked_tags%}
+        <input class="form-check-input" name="tag" type="checkbox" value="{{tag.name}}" id="{{tag.id}}" checked>
+        {%else%}
+        <input class="form-check-input" name="tag" type="checkbox" value="{{tag.name}}" id="{{tag.id}}">
+        {%endif%}
+        <label class="form-check-label" for="{{tag.id}}">
+            {{tag.name}}
+        </label>
+    </div>
+    {%endfor%}
+    {%else%}
     <textarea class='form-control' name="content" cols="30" rows="10"
         placeholder="Type your blog here">{{post.content}}</textarea>
+    {%endif%}
     <button style="margin-top:25px" class="btn btn-primary btn-sm" type="submit">SAVE</button>
 </form>
 

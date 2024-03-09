@@ -13,10 +13,10 @@ Users
     {%endfor%}
 </ul>
 {%else%}
-<h1 class="display-2">No Users</h1>
+<h1 class="display-2" style="margin-bottom:50px;">No Users</h1>
 {%endif%}
 
-
+<h2 class="display-6">Add user</h2>
 <form action="/users" method="POST">
     <input type="text" name="first_name" placeholder="First Name" required>
     <input type="text" name="last_name" placeholder="Last Name" required>

@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+
+{%block title%}
+Edit User
+{%endblock%}
+
+{%block content%}
+<form method="POST">
+    <input type="text" name="tag_name" placeholder="Tag Name" value="{{tag.name}}" required>
+    <button class="btn btn-primary" type="submit">SAVE</button>
+</form>
+<a style="margin-top:25px" class="btn btn-outline-primary" href="/tag/{{tag.id}}">⬅ BACK</a>
+{%endblock%}

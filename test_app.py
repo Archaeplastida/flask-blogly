@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User, Post
+from models import db, User, Post, Tag
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
 app.config['SQLALCHEMY_ECHO'] = False
@@ -21,6 +21,7 @@ class BloglyUserViewsTestCase(TestCase):
 
         User.query.delete()
         Post.query.delete()
+        Tag.query.delete()
 
         user = User(first_name='John', last_name='Doe')
 
@@ -32,11 +33,19 @@ class BloglyUserViewsTestCase(TestCase):
         db.session.add(post)
         db.session.commit()
 
+        tag = Tag(name='Cool')
+
+        db.session.add(tag)
+        db.session.commit()
+
         self.user_id = user.id
         self.user = user
 
         self.post_id = post.id
         self.post = post
+
+        self.tag_id = tag.id
+        self.tag = tag
 
     def tearDown(self):
         """Clean up left over transactions."""
@@ -128,7 +137,7 @@ class BloglyUserViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertNotIn(f'Very Happy Days!', html)
-            self.assertIn(f'<h2 class="display-6">No Posts</h2>', html)
+            self.assertIn('<h2 class="display-6" style="margin-top:50px; margin-bottom:50px;">No Posts</h2>', html)
             self.assertEqual(resp.status_code, 200)
 
     def test_edit_user_post(self):
@@ -142,4 +151,41 @@ class BloglyUserViewsTestCase(TestCase):
             self.assertIn(f'<h1 style="margin-bottom:0;" class="display-5">{self.post.title}</h1>', html)
             self.assertIn(f'{self.post.content}', html)
             self.assertIn(f'<i>By John Doe on Thursday, March 07, 2024, 03:42 PM</i>',html)
+            self.assertEqual(resp.status_code, 200)
+
+    def test_tag_list(self):
+        with app.test_client() as client:
+            resp = client.get('/tags')
+            html = resp.get_data(as_text=True)
+
+            self.assertIn('Cool', html)
+            self.assertIn('<h1 class="display-2">Tags</h1>', html)
+            self.assertIn('<h2 class="display-6">Add tag</h2>', html)
+            self.assertEqual(resp.status_code, 200)
+
+    def test_tag_add(self):
+        with app.test_client() as client:
+            resp = client.post('/tags', data={'tag_name':'Awesome!'}, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertIn('Awesome!</h1>', html)
+            self.assertIn('ID: 11', html)
+            self.assertIn('No posts', html)
+            self.assertEqual(resp.status_code, 200)
+
+    def test_tag_delete(self):
+        with app.test_client() as client:
+            resp = client.post(f'/tags/{self.tag_id}', data={'ACTION':'delete'}, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertIn('No Tags', html)
+            self.assertEqual(resp.status_code, 200)
+
+    def test_tag_edit(self):
+        with app.test_client() as client:
+            resp = client.post(f'/tags/{self.tag_id}/edit', data={"tag_name": 'Uncool!'}, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertIn('Uncool!', html)
+            self.assertNotIn('Cool', html)
             self.assertEqual(resp.status_code, 200)

@@ -7,7 +7,20 @@ New Post
 <h1 class="display-5">Add Post for {{user.first_name}} {{user.last_name}}</h1>
 <form method="POST">
     <input class='form-control' name="title" type="text" placeholder="Title">
+    {%if tags%}
+    <textarea class='form-control' name="content" cols="30" rows="10" placeholder="Type your blog here"
+        style="margin-bottom:25px"></textarea>
+    {%for tag in tags%}
+    <div class="form-check">
+        <input class="form-check-input" name="tag" type="checkbox" value="{{tag.name}}" id="{{tag.id}}">
+        <label class="form-check-label" for="{{tag.id}}">
+            {{tag.name}}
+        </label>
+    </div>
+    {%endfor%}
+    {%else%}
     <textarea class='form-control' name="content" cols="30" rows="10" placeholder="Type your blog here"></textarea>
+    {%endif%}
     <button style="margin-top:25px" class="btn btn-primary btn-sm" type="submit">CREATE POST</button>
 </form>
 

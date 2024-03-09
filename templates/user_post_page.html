@@ -13,6 +13,13 @@
     <h1 style="margin-bottom:0;" class="display-5">{{post.title}}</h1>
     {{post.content}}
 </article>
+{%if tags%}
+<p style="margin-top:15px;"><b>TAGS:</b>
+    {%for tag in tags%}
+    <a style="text-decoration:none;" href="/tags/{{tag.id}}" class="badge text-bg-primary">{{tag.name}}</a>
+    {%endfor%}
+</p>
+{%endif%}
 <small>
     <p style="margin-top: 25px;"><i>By {{user.first_name}} {{user.last_name}} on {{creation_date}}</i></p>
 </small>
